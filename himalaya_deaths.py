@@ -51,7 +51,7 @@ deaths.sort_values(by=['year'], ascending=True, inplace=True)
 
 
 '''
-    Create list of all years in range (is same for injuroes and deaths - 1905 - 2019)
+    Create list of all years in range 
     
 '''
 all_years = [*range(deaths.iloc[0]['year'], deaths.iloc[len(deaths)-1]['year']+1)]

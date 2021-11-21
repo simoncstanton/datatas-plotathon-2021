@@ -48,7 +48,7 @@ injuries.dropna(inplace=True)
 injuries.sort_values(by=['year'], ascending=True, inplace=True)
 
 '''
-    Create list of all years in range (is same for injuries and deaths - 1905 - 2019)
+    Create list of all years in range 
     
 '''
 all_years = [*range(injuries.iloc[0]['year'], injuries.iloc[len(injuries)-1]['year']+1)]
