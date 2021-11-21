@@ -1,0 +1,74 @@
+---
+title: "deaths_injuries_himalayas"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggplot2)
+```
+
+
+
+```{r, echo=FALSE, message=FALSE}
+
+deaths <- read.csv('./deaths.csv', header=TRUE)
+injuries <- read.csv('./injuries.csv', header=TRUE)
+
+```
+
+```{r, echo=FALSE}
+ggplot(deaths) + 
+  geom_line(mapping=aes(x=years, y=total_deaths_accum, colour="Total")) +
+  geom_line(aes(x=years, y=total_deaths_everest_accum, colour="Everest")) +
+  geom_line(aes(x=years, y=total_deaths_hired_accum, colour="Hired")) +
+  geom_line(aes(x=years, y=total_deaths_hired_everest_accum, colour="Hired, on Everest")) +
+  theme_bw() + 
+  labs(title = "Deaths in the Himalayas", 
+       subtitle = "Cumulative Deaths from 1905 to 2019") +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 12),    # Center title position and size
+    plot.subtitle = element_text(hjust = 0.5, size=10),            # Center subtitle
+    plot.caption = element_text(hjust = 0, face = "italic") # move caption to the left
+  ) +
+  scale_color_manual(values = c(
+    'Total' = 'blue',
+    'Everest' = 'red',
+    'Hired' = 'darkgreen',
+    'Hired, on Everest' = 'orange')) +
+  labs(color = 'Deaths') +
+  scale_y_continuous(breaks=seq(0,1200,100)) +
+  scale_x_continuous(breaks=seq(1900,2020,20))
+
+ggsave(filename="deaths_cumulative.png", width=12, height=9, dpi=300, bg='white')
+
+```
+
+
+```{r, echo=FALSE}
+ggplot(injuries) + 
+  geom_line(mapping=aes(x=years, y=total_injured_accum, colour="Total")) +
+  geom_line(aes(x=years, y=total_injured_everest_accum, colour="Everest")) +
+  geom_line(aes(x=years, y=total_injured_hired_accum, colour="Hired")) +
+  geom_line(aes(x=years, y=total_injured_hired_everest_accum, colour="Hired, on Everest")) +
+  theme_bw() + 
+  labs(title = "Injuries in the Himalayas", 
+       subtitle = "Cumulative Injuries from 1931 to 2019") +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 12),    # Center title position and size
+    plot.subtitle = element_text(hjust = 0.5, size=10),            # Center subtitle
+    plot.caption = element_text(hjust = 0, face = "italic") # move caption to the left
+  ) +
+  scale_color_manual(values = c(
+    'Total' = 'blue',
+    'Everest' = 'red',
+    'Hired' = 'darkgreen',
+    'Hired, on Everest' = 'orange')) +
+  labs(color = 'Injuries') +
+  scale_y_continuous(breaks=seq(0,2000,200)) +
+  scale_x_continuous(breaks=seq(1930,2020,10))
+  
+ggsave(filename="injuries_cumulative.png", width=12, height=9, dpi=300, bg='white')
+```
